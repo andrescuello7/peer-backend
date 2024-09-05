@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pi Chat</title>
+</head>
+
+<body>
+    <div class="wrapper" id="container">
+        <div class="container">
+            <div class="left">
+                <div class="top" id="addName">
+                    <input type="text" id="userName" placeholder="John Smith" />
+                    <a onclick="saveName()" class="write-link send search"></a>
+                </div>
+                <ul class="people">
+                    <div class="person" data-chat="person6">
+                        <img src="images/pi_logo.png" alt="" />
+                        <span class="name">Pi Consulting</span>
+                        <span class="time">12:00 PM</span>
+                        <span class="preview">Bienvenidos!</span>
+                    </div>
+                </ul>
+            </div>
+            <div class="right">
+                <div class="top" style="display: flex; justify-content: space-between;">
+                    <span>
+                        To: <span class="name">Pi Consulting</span>
+                    </span>
+                    <div id="sound_id" class="w-10 mb-2"></div>
+                </div>
+                <div class="chat" data-chat="person2" id="body">
+                    <div class="conversation-start">
+                        <span>Viernes 13, 12:00 PM</span>
+                    </div>
+                </div>
+                <div class="write d-flex" style="display: flex;">
+                    <input type="text" class="w-100" id="input" placeholder="Escribe aqui..." />
+                    <div id="z_stickers_css"></div>
+                    <div id="stickers_send" onclick="sound_list()" style="width: 5%; margin-top: 1%;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="text-secondary bi bi-stickies" viewBox="0 0 16 16">
+                          <path d="M1.5 0A1.5 1.5 0 0 0 0 1.5V13a1 1 0 0 0 1 1V1.5a.5.5 0 0 1 .5-.5H14a1 1 0 0 0-1-1z"/>
+                          <path d="M3.5 2A1.5 1.5 0 0 0 2 3.5v11A1.5 1.5 0 0 0 3.5 16h6.086a1.5 1.5 0 0 0 1.06-.44l4.915-4.914A1.5 1.5 0 0 0 16 9.586V3.5A1.5 1.5 0 0 0 14.5 2zM3 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5V9h-4.5A1.5 1.5 0 0 0 9 10.5V15H3.5a.5.5 0 0 1-.5-.5zm7 11.293V10.5a.5.5 0 0 1 .5-.5h4.293z"/>
+                        </svg>
+                    </div>
+                    <div id="send" class="write-link w-5 "  style="margin-top: 1%; margin-left: 3px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="text-secondary bi bi-send" viewBox="0 0 16 16">
+                            <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/sound.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
