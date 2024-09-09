@@ -9,7 +9,7 @@ class PeerToPeer {
     constructor() {
         this.ws = null;
         this.WS_PORT = process.env.PORT || 3000;
-        this.NET_HOST = process.env.HOST || "127.0.0.1";
+        this.NET_HOST = process.env.HOST || "0.0.0.0";
         this.NET_PORT = parseInt(this.WS_PORT) + 1;
         this.conections = []
         this.socketsConnecteds = [];
@@ -39,12 +39,10 @@ class PeerToPeer {
                     if (!socket._writableState.ended) {
                         socket.write(data.toString().trim());
                     }
+                    this.ws.clients.forEach((client) => {
+                        if (client.readyState === OPEN) client.send(msgModel.formatMessage());
+                    });
                 } catch (error) { console.error(error); }
-            });
-            this.ws.clients.forEach((client) => {
-                if (client.readyState === OPEN) {
-                    client.send(msgModel.formatMessage());
-                }
             });
         }
 
