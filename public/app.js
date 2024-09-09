@@ -61,7 +61,9 @@ wsocket.onmessage = (event) => {
                 setTimeout(() => { container.classList.remove("shake") }, 1000);
             }
         }
-        body.innerHTML += `<div class="bubble you"><b>${username}</b></br>${message}</div>`;
+        if (username !== undefined && message !== undefined) {
+            body.innerHTML += `<div class="bubble you"><b>${username}</b></br>${message}</div>`;
+        }
     } else {
         body.innerHTML += `<div class="bubble me">${message}</div>`;
         stickersCss.innerHTML = '<div></div>'

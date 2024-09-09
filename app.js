@@ -21,7 +21,7 @@ class PeerToPeer {
         serverNet.listen({ host: this.NET_HOST, port: this.NET_PORT }, () => {
             serverHttp.listen({ host: this.NET_HOST, port: this.WS_PORT }, () => {
                 console.log(`\n- Server Run in ${this.NET_HOST}:${this.NET_PORT}`);
-                console.log(`- WebSite in http://localhost:${this.WS_PORT}`);
+                console.log(`- WebSite in http://localhost:${this.WS_PORT}\n`);
             });
         });
         serverNet.on("error", (error) => console.error("Server error:", error.message));
@@ -76,10 +76,11 @@ class PeerToPeer {
                 if (data.length > 0) {
                     this.conections.concat(data);
                 } else {
-                    const exists = this.conections.some(item => item.port === data.port && item.host === data.host);
+                    const exists = this.conections.some(item => item.port === data.port && item.host === data.host || this.NET_PORT === data.port && this.NET_HOST === data.host);
                     if (!exists) {
                         this.conections.push(data)
                         this.socketsConnecteds.push(_socket);
+                        console.log(`\x1b[32m[+] Connection | \x1b[0m ${data.host}:${data.port}`);
                     } else {
                         this.ws.clients.forEach((item) => {
                             let _model = new MessageModel(data)
