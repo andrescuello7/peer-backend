@@ -6,7 +6,9 @@ document.querySelector('.chat[data-chat=person2]').classList.add('active-chat')
 const idSound = document.getElementById("idSound")
 const input = document.getElementById("input")
 const stickersCss = document.getElementById("stickersCss")
-const wsocket = new WebSocket('ws://localhost:3000');
+const PORT = 4000;
+const HOST = '0.0.0.0'
+const wsocket = new WebSocket(`ws://${HOST}:${PORT}`);
 // wsocket.onopen = () => document.getElementById('sendButton').disabled = false;
 // wsocket.onclose = () => console.log('WebSocket cerrado');
 // wsocket.onerror = (error) => console.error('WebSocket error:', error);
@@ -74,8 +76,8 @@ function handleEnter() {
     try {
         if (input.value != "" && input.value != undefined) {
             wsocket.send(JSON.stringify({
-                port: 4001,
-                host: '127.0.0.1',
+                port: parseInt(PORT) + 1,
+                host: HOST,
                 username: localStorage.getItem('username') ?? 'Anonymous',
                 message: input.value,
                 voice: './sound/ds_notify.mp3',
@@ -91,8 +93,8 @@ function handleEnter() {
 function soundSend(sound_music, name) {
     try {
         wsocket.send(JSON.stringify({
-            port: 4001,
-            host: '127.0.0.1',
+            port: parseInt(PORT) + 1,
+            host: HOST,
             username: localStorage.getItem('username') ?? 'Anonymous',
             message: name,
             voice: sound_music,
@@ -144,8 +146,8 @@ const connectPeer = () => {
     try {
         if (inputConnection.value !== "") {
             wsocket.send(JSON.stringify({
-                port: 4001,
-                host: '127.0.0.1',
+                port: parseInt(PORT) + 1,
+                host: HOST,
                 username: localStorage.getItem('username') ?? 'Anonymous',
                 message: inputConnection.value,
                 voice: './sound/ds_notify.mp3',
