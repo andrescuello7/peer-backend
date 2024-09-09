@@ -6,7 +6,7 @@ document.querySelector('.chat[data-chat=person2]').classList.add('active-chat')
 const idSound = document.getElementById("idSound")
 const input = document.getElementById("input")
 const stickersCss = document.getElementById("stickersCss")
-const wsocket = new WebSocket('ws://localhost:4000');
+const wsocket = new WebSocket('ws://localhost:3000');
 // wsocket.onopen = () => document.getElementById('sendButton').disabled = false;
 // wsocket.onclose = () => console.log('WebSocket cerrado');
 // wsocket.onerror = (error) => console.error('WebSocket error:', error);
