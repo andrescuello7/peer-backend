@@ -34,15 +34,17 @@ class PeerToPeer {
             this.connectSocket(msgModel.message)
         }
         if (msgModel.type === "MESSAGE") {
+            // Send Message P2P
             this.socketsConnecteds.forEach((socket) => {
                 try {
                     if (!socket._writableState.ended) {
                         socket.write(data.toString().trim());
                     }
-                    this.ws.clients.forEach((client) => {
-                        if (client.readyState === OPEN) client.send(msgModel.formatMessage());
-                    });
                 } catch (error) { console.error(error); }
+            });
+            // Send Message for website and webSockets
+            this.ws.clients.forEach((client) => {
+                if (client.readyState === OPEN) client.send(msgModel.formatMessage());
             });
         }
 
