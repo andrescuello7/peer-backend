@@ -6,7 +6,7 @@ document.querySelector('.chat[data-chat=person2]').classList.add('active-chat')
 const idSound = document.getElementById("idSound")
 const input = document.getElementById("input")
 const stickersCss = document.getElementById("stickersCss")
-const PORT = 4000;
+const PORT = 3000;
 const HOST = '0.0.0.0'
 const wsocket = new WebSocket(`ws://${HOST}:${PORT}`);
 // wsocket.onopen = () => document.getElementById('sendButton').disabled = false;
