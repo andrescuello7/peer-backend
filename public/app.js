@@ -32,7 +32,7 @@ document.querySelector('.chat[data-chat=person2]').classList.add('active-chat')
 
 const input = document.getElementById("input")
 const PORT = 3000;
-const HOST = '0.0.0.0'
+const HOST = "149.50.139.254"
 
 const idSound = document.getElementById("idSound")
 const wsocket = new WebSocket(`ws://${HOST}:${PORT}`);
