@@ -21,7 +21,7 @@ class PeerToPeer {
         serverNet.listen({ host: this.NET_HOST, port: this.NET_PORT }, () => {
             serverHttp.listen({ host: this.NET_HOST, port: this.WS_PORT }, () => {
                 console.log(`\n- Server Run in ${this.NET_HOST}:${this.NET_PORT}`);
-                console.log(`- WebSite in http://localhost:${this.WS_PORT}\n`);
+                console.log(`- WebSite in http://${this.NET_HOST}:${this.WS_PORT}\n`);
             });
         });
         serverNet.on("error", (error) => console.error("Server error:", error.message));
