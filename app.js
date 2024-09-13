@@ -9,7 +9,7 @@ class PeerToPeer {
     constructor() {
         this.ws = null;
         this.WS_PORT = process.env.PORT || 3000;
-        this.NET_HOST = process.env.HOST || "0.0.0.0";
+        this.NET_HOST = process.env.HOST || "149.50.139.254";
         this.NET_PORT = parseInt(this.WS_PORT) + 1;
         this.conections = []
         this.socketsConnecteds = [];

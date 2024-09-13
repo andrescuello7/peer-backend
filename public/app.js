@@ -7,7 +7,7 @@ const idSound = document.getElementById("idSound")
 const input = document.getElementById("input")
 const stickersCss = document.getElementById("stickersCss")
 const PORT = 3000;
-const HOST = '0.0.0.0'
+const HOST = '149.50.139.254'
 const wsocket = new WebSocket(`ws://${HOST}:${PORT}`);
 // wsocket.onopen = () => document.getElementById('sendButton').disabled = false;
 // wsocket.onclose = () => console.log('WebSocket cerrado');
