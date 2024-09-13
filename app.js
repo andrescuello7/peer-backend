@@ -163,8 +163,11 @@ class PeerToPeer {
     // Initialize WebSocket server
     initializeWebconnectSocket(server) {
         this.ws = new Server({ server });
-
-        this.ws.on("connection", (socket) => {
+        this.ws.on("connection", (socket, req) => {
+            const ip = req.socket.remoteAddress;
+            const port = req.socket.remotePort;
+            console.log(`\x1b[33mClient from IP\x1b[0m ${ip}:${port}`);
+        
             socket.on("message", (data) => this.sendMessage(data));
             socket.on("close", () => console.log("WebSocket client disconnected"));
         });

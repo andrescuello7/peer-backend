@@ -1,18 +1,3 @@
-let stateSticker = false
-let soundState = localStorage.getItem('soundState') | true
-let nameStorage = localStorage.getItem('username') ?? 'Anonymous';
-document.querySelector('.chat[data-chat=person2]').classList.add('active-chat')
-
-const idSound = document.getElementById("idSound")
-const input = document.getElementById("input")
-const stickersCss = document.getElementById("stickersCss")
-const PORT = 3000;
-const HOST = '0.0.0.0'
-const wsocket = new WebSocket(`ws://${HOST}:${PORT}`);
-// wsocket.onopen = () => document.getElementById('sendButton').disabled = false;
-// wsocket.onclose = () => console.log('WebSocket cerrado');
-// wsocket.onerror = (error) => console.error('WebSocket error:', error);
-
 let notSound = `<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="text-secondary bi bi-volume-mute" viewBox="0 0 16 16">
   <path d="M6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06M6 5.04 4.312 6.39A.5.5 0 0 1 4 6.5H2v3h2a.5.5 0 0 1 .312.11L6 10.96zm7.854.606a.5.5 0 0 1 0 .708L12.207 8l1.647 1.646a.5.5 0 0 1-.708.708L11.5 8.707l-1.646 1.647a.5.5 0 0 1-.708-.708L10.793 8 9.146 6.354a.5.5 0 1 1 .708-.708L11.5 7.293l1.646-1.647a.5.5 0 0 1 .708 0"/>
 </svg>`
@@ -40,6 +25,20 @@ let soundsEnum = [
     { path: './sound/sumbido.mp3', name: 'sumbido' },
 ]
 
+let StateSound = true;
+let stateSticker = false
+let nameStorage = localStorage.getItem('username') ?? 'Anonymous';
+document.querySelector('.chat[data-chat=person2]').classList.add('active-chat')
+
+const input = document.getElementById("input")
+const PORT = 3000;
+const HOST = '0.0.0.0'
+
+const idSound = document.getElementById("idSound")
+const wsocket = new WebSocket(`ws://${HOST}:${PORT}`);
+const stickersCss = document.getElementById("stickersCss")
+
+
 document.getElementById("send").addEventListener("click", () => handleEnter())
 input.addEventListener('keydown', (event) => { if (event.keyCode === 13) handleEnter() });
 
@@ -48,7 +47,7 @@ wsocket.onmessage = (event) => {
     const body = document.getElementById("body")
 
     if (username !== nameStorage) {
-        if (localStorage.getItem('sound_state')) {
+        if (StateSound) {
             let notify;
             if (notify) {
                 notify.pause();
@@ -57,11 +56,11 @@ wsocket.onmessage = (event) => {
 
             notify = new Audio(voice);
             notify.play().catch(error => console.warn('Error playing the sound:', error));
-            if (voice == './sound/sumbido.mp3') {
-                let container = document.getElementById("container");
-                container.classList.add("shake");
-                setTimeout(() => { container.classList.remove("shake") }, 1000);
-            }
+        }
+        if (voice == './sound/sumbido.mp3') {
+            let container = document.getElementById("container");
+            container.classList.add("shake");
+            setTimeout(() => { container.classList.remove("shake") }, 1000);
         }
         if (username !== undefined && message !== undefined) {
             body.innerHTML += `<div class="bubble you"><b>${username}</b></br>${message}</div>`;
@@ -131,14 +130,13 @@ const saveUsername = () => {
     userName.placeholder = localStorage.getItem('username') ?? 'Anonymous'
 }
 
-idSound.addEventListener('click', () => {
-    if (soundState === true) {
-        idSound.innerHTML = notSound
-    } else {
+idSound.addEventListener('click', async () => {
+    if (StateSound !== true) {
         idSound.innerHTML = sound
+    } else {
+        idSound.innerHTML = notSound
     }
-    soundState = !soundState
-    localStorage.setItem('soundState', soundState)
+    StateSound = !StateSound
 })
 
 const connectPeer = () => {
@@ -161,5 +159,9 @@ const connectPeer = () => {
     inputConnection.value = ""
 }
 
-saveUsername()
-idSound.innerHTML = sound
+function main() {
+    localStorage.setItem('soundState', true)
+    idSound.innerHTML = sound
+    saveUsername()
+}
+main()
